@@ -26,7 +26,7 @@ if(NOT DEFINED CMAKE_BUILD_TYPE)
 set(CMAKE_BUILD_TYPE None)
 endif(NOT DEFINED CMAKE_BUILD_TYPE)
 #set(CMAKE_BUILD_TYPE Debug)
-#set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Release)
 
 # None
 set(CMAKE_C_FLAGS "-Wall -Wshadow -Wpointer-arith -Wmissing-declarations -Wnested-externs")
@@ -71,10 +71,15 @@ target_link_libraries(n2n crypto)
 endif(N2N_OPTION_AES)
 
 add_executable(edge edge.c)
-target_link_libraries(edge n2n)
+if(DEFINED WIN32)
+	target_link_libraries(edge n2n ws2_32)
+else(DEFNED WIN32)
+	target_link_libraries(edge n2n )
+endif(DEFINED WIN32)
+
 
 add_executable(supernode sn.c)
-target_link_libraries(supernode n2n)
+target_link_libraries(supernode n2n )
 
 add_executable(test test.c)
 target_link_libraries(test n2n)

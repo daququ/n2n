@@ -16,7 +16,9 @@
  *
  */
 
+#include <process.h>
 #include "n2n.h"
+#include "lzoconf.h"
 
 #ifdef __ANDROID_NDK__
 #include "android/edge_android.h"
@@ -1629,7 +1631,7 @@ const char *random_device_mac(void)
             mac[i] = ':';
             continue;
         }
-        mac[i] = key[random() % sizeof(key)];
+        mac[i] = key[rand() % sizeof(key)];
     }
     mac[sizeof(mac) - 1] = '\0';
     return mac;
